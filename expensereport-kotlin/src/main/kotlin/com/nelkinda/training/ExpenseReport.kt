@@ -27,10 +27,10 @@ class ExpenseReport(
             printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
         }
 
-        val parts = expenses.partition { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
-        val mealExpenses = parts.first.sumOf { it.amount }
+        val (mealList, nonMealList) = expenses.partition { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
+        val mealExpenses = mealList.sumOf { it.amount }
         printer("Meal expenses: $mealExpenses")
-        val total = mealExpenses + parts.second.sumOf { it.amount }
+        val total = mealExpenses + nonMealList.sumOf { it.amount }
         printer("Total expenses: $total")
     }
 
