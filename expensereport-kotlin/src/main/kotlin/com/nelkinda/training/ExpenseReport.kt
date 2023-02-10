@@ -23,11 +23,10 @@ class ExpenseReport(
                 mealExpenses += expense.amount
             }
 
-            var expenseName = ""
-            when (expense.type) {
-                ExpenseType.DINNER -> expenseName = "Dinner"
-                ExpenseType.BREAKFAST -> expenseName = "Breakfast"
-                ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
+            val expenseName = when (expense.type) {
+                ExpenseType.DINNER -> "Dinner"
+                ExpenseType.BREAKFAST -> "Breakfast"
+                ExpenseType.CAR_RENTAL -> "Car Rental"
             }
 
             val mealOverExpensesMarker =
