@@ -1,9 +1,9 @@
 package com.nelkinda.training
 
 import com.nelkinda.training.ExpenseType.*
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.util.Date
+import java.util.*
 
 class ExpenseReportTest {
     @Test
@@ -31,6 +31,6 @@ class ExpenseReportTest {
 
         ExpenseReport(testPrinter) { testDate }.printReport(expenses)
 
-        Assertions.assertEquals(outputLines, expectedOutputLines)
+        assertEquals(expectedOutputLines, outputLines)
     }
 }
