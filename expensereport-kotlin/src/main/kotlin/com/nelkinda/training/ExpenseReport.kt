@@ -21,17 +21,12 @@ class ExpenseReport(
     val currentDateProvider: () -> Date = { Date() }
 ) {
     fun printReport(expenses: List<Expense>) {
-        var total = 0
-        var mealExpenses = 0
-
         printer("Expenses ${currentDateProvider()}")
 
-        for (expense in expenses) {
-            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
-                mealExpenses += expense.amount
-            }
-            total += expense.amount
-        }
+        val total = expenses.sumOf { it.amount }
+        val mealExpenses = expenses
+            .filter { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
+            .sumOf { it.amount }
 
         expenses.forEach {
             printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
