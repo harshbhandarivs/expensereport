@@ -1,5 +1,7 @@
 package com.nelkinda.training
 
+import com.nelkinda.training.ExpenseType.BREAKFAST
+import com.nelkinda.training.ExpenseType.DINNER
 import java.util.*
 
 enum class ExpenseType(val nameToReport: String) {
@@ -9,8 +11,8 @@ enum class ExpenseType(val nameToReport: String) {
 data class Expense(val type: ExpenseType, val amount: Int = 0) {
     fun isMealTooExpensive(): Boolean {
         return when {
-            type == ExpenseType.BREAKFAST && amount > 1000 -> return true
-            type == ExpenseType.DINNER && amount > 5000 -> return true
+            type == BREAKFAST && amount > 1000 -> return true
+            type == DINNER && amount > 5000 -> return true
             else -> false
         }
     }
@@ -27,7 +29,7 @@ class ExpenseReport(
             printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
         }
 
-        val (mealList, nonMealList) = expenses.partition { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
+        val (mealList, nonMealList) = expenses.partition { it.type == DINNER || it.type == BREAKFAST }
         val mealExpenses = mealList.sumOf { it.amount }
         printer("Meal expenses: $mealExpenses")
         val total = mealExpenses + nonMealList.sumOf { it.amount }
