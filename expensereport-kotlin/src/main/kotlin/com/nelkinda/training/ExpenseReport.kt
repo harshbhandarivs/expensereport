@@ -6,7 +6,15 @@ enum class ExpenseType {
     DINNER, BREAKFAST, CAR_RENTAL
 }
 
-data class Expense(val type: ExpenseType, val amount: Int = 0)
+data class Expense(val type: ExpenseType, val amount: Int = 0) {
+    fun isMealTooExpensive(): Boolean {
+        return when {
+            type == ExpenseType.BREAKFAST && amount > 1000 -> return true
+            type == ExpenseType.DINNER && amount > 5000 -> return true
+            else -> false
+        }
+    }
+}
 
 class ExpenseReport(
     val printer: (String) -> Any = { s: String -> println(s) },
@@ -29,8 +37,7 @@ class ExpenseReport(
                 ExpenseType.CAR_RENTAL -> "Car Rental"
             }
 
-            val mealOverExpensesMarker =
-                if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+            val mealOverExpensesMarker = if (expense.isMealTooExpensive()) "X" else " "
 
             printer(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -40,4 +47,5 @@ class ExpenseReport(
         printer("Meal expenses: $mealExpenses")
         printer("Total expenses: $total")
     }
+
 }
