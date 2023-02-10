@@ -30,16 +30,17 @@ class ExpenseReport(
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
                 mealExpenses += expense.amount
             }
-
-            val mealOverExpensesMarker = if (expense.isMealTooExpensive()) "X" else " "
-
-            printer(expense.type.nameToReport + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
-
             total += expense.amount
+        }
+
+        expenses.forEach {
+            printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
         }
 
         printer("Meal expenses: $mealExpenses")
         printer("Total expenses: $total")
     }
+
+    private fun mealOverExpensesMarker(expense: Expense) = if (expense.isMealTooExpensive()) "X" else " "
 
 }
