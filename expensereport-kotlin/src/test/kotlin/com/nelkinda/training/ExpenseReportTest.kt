@@ -7,7 +7,7 @@ import java.util.*
 
 class ExpenseReportTest {
     @Test
-    fun shouldPrintThings() {
+    fun `check expense report`() {
         val expenses = listOf(
             Expense(DINNER, 500),
             Expense(DINNER, 6000),
