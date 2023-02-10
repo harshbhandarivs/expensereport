@@ -13,7 +13,7 @@ class ExpenseReport(
         printer("Expenses ${currentDateProvider()}")
 
         expenses.forEach {
-            printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
+            printer(it.type.nameToReport + "\t" + it.amount + "\t" + expensesMarker(it))
         }
 
         val (mealList, nonMealList) = expenses.partition { it.type == DINNER || it.type == BREAKFAST }
@@ -23,6 +23,6 @@ class ExpenseReport(
         printer("Total expenses: $total")
     }
 
-    private fun mealOverExpensesMarker(expense: Expense) = if (expense.isMealTooExpensive()) "X" else " "
+    private fun expensesMarker(expense: Expense) = if (expense.isExpensive()) "X" else " "
 
 }
