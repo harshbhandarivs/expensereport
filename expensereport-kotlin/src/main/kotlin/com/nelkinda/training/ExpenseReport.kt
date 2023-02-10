@@ -23,16 +23,14 @@ class ExpenseReport(
     fun printReport(expenses: List<Expense>) {
         printer("Expenses ${currentDateProvider()}")
 
-        val total = expenses.sumOf { it.amount }
-        val mealExpenses = expenses
-            .filter { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
-            .sumOf { it.amount }
-
         expenses.forEach {
             printer(it.type.nameToReport + "\t" + it.amount + "\t" + mealOverExpensesMarker(it))
         }
 
+        val parts = expenses.partition { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
+        val mealExpenses = parts.first.sumOf { it.amount }
         printer("Meal expenses: $mealExpenses")
+        val total = mealExpenses + parts.second.sumOf { it.amount }
         printer("Total expenses: $total")
     }
 
