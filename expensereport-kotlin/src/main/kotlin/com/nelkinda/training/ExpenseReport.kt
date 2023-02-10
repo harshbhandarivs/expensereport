@@ -2,8 +2,8 @@ package com.nelkinda.training
 
 import java.util.*
 
-enum class ExpenseType {
-    DINNER, BREAKFAST, CAR_RENTAL
+enum class ExpenseType(val nameToReport: String) {
+    DINNER("Dinner"), BREAKFAST("Breakfast"), CAR_RENTAL("Car Rental")
 }
 
 data class Expense(val type: ExpenseType, val amount: Int = 0) {
@@ -31,15 +31,9 @@ class ExpenseReport(
                 mealExpenses += expense.amount
             }
 
-            val expenseName = when (expense.type) {
-                ExpenseType.DINNER -> "Dinner"
-                ExpenseType.BREAKFAST -> "Breakfast"
-                ExpenseType.CAR_RENTAL -> "Car Rental"
-            }
-
             val mealOverExpensesMarker = if (expense.isMealTooExpensive()) "X" else " "
 
-            printer(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
+            printer(expense.type.nameToReport + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
             total += expense.amount
         }
