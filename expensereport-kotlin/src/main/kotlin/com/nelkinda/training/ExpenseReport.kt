@@ -4,19 +4,6 @@ import com.nelkinda.training.ExpenseType.BREAKFAST
 import com.nelkinda.training.ExpenseType.DINNER
 import java.util.*
 
-enum class ExpenseType(val nameToReport: String) {
-    DINNER("Dinner"), BREAKFAST("Breakfast"), CAR_RENTAL("Car Rental")
-}
-
-data class Expense(val type: ExpenseType, val amount: Int = 0) {
-    fun isMealTooExpensive(): Boolean {
-        return when {
-            type == BREAKFAST && amount > 1000 -> return true
-            type == DINNER && amount > 5000 -> return true
-            else -> false
-        }
-    }
-}
 
 class ExpenseReport(
     val printer: (String) -> Any = { s: String -> println(s) },
